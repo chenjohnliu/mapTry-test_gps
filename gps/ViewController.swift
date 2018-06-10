@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var resultSearchController: UISearchController? = nil
     let locationManager = CLLocationManager()
     var selectedPin: MKPlacemark? = nil
+    let currentUpdateURL = "https://ntust12.000webhostapp.com/api/current_position/update.php"
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -76,6 +77,39 @@ extension ViewController : CLLocationManagerDelegate {
             let span = MKCoordinateSpanMake(0.05, 0.05)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
+            
+            //create the url with NSURL
+            let latitude = String(describing: location.coordinate.latitude)
+            let longitude = String(describing: location.coordinate.longitude)
+            let url = URL(string: "https://ntust12.000webhostapp.com/api/current_position/update.php?id=1&latitude="+latitude+"&longitude="+longitude)! //change the url
+            
+            //create the session object
+            let session = URLSession.shared
+            
+            //now create the URLRequest object using the url object
+            let request = URLRequest(url: url)
+            
+            //create dataTask using the session object to send data to the server
+            let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+                
+                guard error == nil else {
+                    return
+                }
+                
+                guard let data = data else {
+                    return
+                }
+                
+                do {
+                    //create json object from data
+                    if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+                        print(json)
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            })
+            task.resume()
         }
     }
     
