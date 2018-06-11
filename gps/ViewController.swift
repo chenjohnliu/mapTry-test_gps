@@ -56,12 +56,12 @@ class ViewController: UIViewController {
     }
 
     
-    func setDestination()
+    @objc func setDestination()
     {
         //create the url with NSURL
         let latitude = String(destinationLatitude)
         let longitude = String(destinationLongitude)
-        let url = URL(string: "https://ntust12.000webhostapp.com/api/destination/insert.php?latitude="+latitude+"&longitude="+longitude)! //change the url
+        let url = URL(string: "https://ntust12.000webhostapp.com/api/destination/update.php?id=1&latitude="+latitude+"&longitude="+longitude)! //change the url
         
         //create the session object
         let session = URLSession.shared
