@@ -61,7 +61,7 @@ class ViewController: UIViewController {
         //create the url with NSURL
         let latitude = String(destinationLatitude)
         let longitude = String(destinationLongitude)
-        let url = URL(string: "https://ntust12.000webhostapp.com/api/destination/update.php?id=1&latitude="+latitude+"&longitude="+longitude)! //change the url
+        let url = URL(string: "https://api.thingspeak.com/update?api_key=RJ1B7ZCLKM5O76A4&field1="+longitude+"&field2="+latitude)! //change the url
         
         //create the session object
         let session = URLSession.shared
@@ -124,7 +124,7 @@ extension ViewController : CLLocationManagerDelegate {
             //create the url with NSURL
             let latitude = String(describing: location.coordinate.latitude)
             let longitude = String(describing: location.coordinate.longitude)
-            let url = URL(string: "https://ntust12.000webhostapp.com/api/current_position/update.php?id=1&latitude="+latitude+"&longitude="+longitude)! //change the url
+            let url = URL(string: "https://api.thingspeak.com/update?api_key=VZQ0XH1SC3V7GAXG&field1="+longitude+"&field2="+latitude)! //change the url
             
             //create the session object
             let session = URLSession.shared
